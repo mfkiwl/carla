@@ -23,7 +23,6 @@
 #include "DynamicRHI.h"
 
 #include "DrawDebugHelpers.h"
-#include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 namespace cr = carla::road;
@@ -55,6 +54,7 @@ void ACarlaGameModeBase::InitGame(
     const FString &Options,
     FString &ErrorMessage)
 {
+  TRACE_CPUPROFILER_EVENT_SCOPE(ACarlaGameModeBase::InitGame);
   Super::InitGame(MapName, Options, ErrorMessage);
 
   UWorld* World = GetWorld();
