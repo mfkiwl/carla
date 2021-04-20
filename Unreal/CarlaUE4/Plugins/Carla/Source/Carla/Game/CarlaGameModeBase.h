@@ -70,7 +70,7 @@ public:
 
   void EnableEnvironmentObjects(const TSet<uint64>& EnvObjectIds, bool Enable);
 
-  void EnableCarSimChronoOverlapEvents();
+  void EnableOverlapEvents();
 
   void CheckForEmptyMeshes();
 
