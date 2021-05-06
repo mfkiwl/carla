@@ -288,6 +288,22 @@ class World(object):
         try:
             physics_control = actor.get_physics_control()
             physics_control.use_sweep_wheel_collision = True
+            
+            front_left_wheel = physics_control.wheels[0]
+            front_right_wheel = physics_control.wheels[1]
+            rear_left_wheel = physics_control.wheels[2]
+            rear_right_wheel = physics_control.wheels[3]
+
+            tire_friction = 2
+
+            front_left_wheel.tire_friction = tire_friction
+            front_right_wheel.tire_friction = tire_friction
+            rear_left_wheel.tire_friction = tire_friction
+            rear_right_wheel.tire_friction = tire_friction
+
+            wheels = [front_left_wheel, front_right_wheel, rear_left_wheel, rear_right_wheel]
+            physics_control.wheels = wheels
+
             actor.apply_physics_control(physics_control)
         except Exception:
             pass
