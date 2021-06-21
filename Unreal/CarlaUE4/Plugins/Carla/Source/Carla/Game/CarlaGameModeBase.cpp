@@ -449,16 +449,17 @@ void ACarlaGameModeBase::LoadMapLayer(int32 MapLayers)
   LatentInfo.CallbackTarget = this;
   LatentInfo.ExecutionFunction = "OnLoadStreamLevel";
   LatentInfo.Linkage = 0;
-  LatentInfo.UUID = 1;
+  LatentInfo.UUID = LatentInfoUUID;
 
   PendingLevelsToLoad = LevelsToLoad.Num();
 
   for(FName& LevelName : LevelsToLoad)
   {
+    LatentInfoUUID++;
     UGameplayStatics::LoadStreamLevel(World, LevelName, true, true, LatentInfo);
-    LatentInfo.UUID++;
+    LatentInfo.UUID = LatentInfoUUID;
+    UGameplayStatics::FlushLevelStreaming(World);
   }
-
 }
 
 void ACarlaGameModeBase::UnLoadMapLayer(int32 MapLayers)
@@ -471,15 +472,17 @@ void ACarlaGameModeBase::UnLoadMapLayer(int32 MapLayers)
   FLatentActionInfo LatentInfo;
   LatentInfo.CallbackTarget = this;
   LatentInfo.ExecutionFunction = "OnUnloadStreamLevel";
-  LatentInfo.UUID = 1;
+  LatentInfo.UUID = LatentInfoUUID;
   LatentInfo.Linkage = 0;
 
   PendingLevelsToUnLoad = LevelsToUnLoad.Num();
 
   for(FName& LevelName : LevelsToUnLoad)
   {
+    LatentInfoUUID++;
     UGameplayStatics::UnloadStreamLevel(World, LevelName, LatentInfo, false);
-    LatentInfo.UUID++;
+    LatentInfo.UUID = LatentInfoUUID;
+    UGameplayStatics::FlushLevelStreaming(World);
   }
 
 }
